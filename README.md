@@ -1,7 +1,17 @@
 
-# Authentication Bypass via SQL Injection in Faculty Login
+# CloudClassroom PHP 1.0 – Authentication Bypass via SQL Injection in Faculty Login
 
-## Summary
+Presentation:
+- Security vulnerability: SQL Injection
+- Vulnerability Type: Injection
+- CWE: CWE-89
+- Affected Component: Post Query functionality (loginlinkfaculty.php)
+- Software: CloudClassroom PHP Project
+- Version: 1.0 (discontinued).
+- Business area: Education / e-Learning Platforms
+- Submitter: Smith Braz - @smith-braz
+
+## Summary vulnerability
 
 The `loginlinkfaculty.php` endpoint is vulnerable to **SQL Injection (CWE-89)** because user-controlled input from the `fid` (Faculty ID) and `pass` (Password) parameters is concatenated directly into an SQL query without using prepared statements or parameterized queries.
 

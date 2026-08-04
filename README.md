@@ -1,5 +1,7 @@
 
-# CloudClassroom PHP 1.0 – Authentication Bypass via SQL Injection in Faculty Login
+# CloudClassroom PHP 1.0 – Authentication Bypass via SQL Injection in Faculty Login and XSS via UNION Injection
+
+## Authentication Bypass via SQL Injection in Faculty Login
 
 Presentation:
 - Security vulnerability: SQL Injection
@@ -11,7 +13,7 @@ Presentation:
 - Business area: Education / e-Learning Platforms
 - Submitter: Smith Braz - @smith-braz
 
-## Summary vulnerability
+### Summary vulnerability
 
 The `loginlinkfaculty.php` endpoint is vulnerable to **SQL Injection (CWE-89)** because user-controlled input from the `fid` (Faculty ID) and `pass` (Password) parameters is concatenated directly into an SQL query without using prepared statements or parameterized queries.
 
@@ -21,9 +23,9 @@ In addition, if the application displays the session variable `$_SESSION["fname"
 
 ---
 
-## Vulnerability Details
+### Vulnerability Details
 
-### Vulnerable Code
+#### Vulnerable Code
 
 ```php
 $x = $_POST["fid"];
@@ -38,7 +40,7 @@ Because both parameters are directly concatenated into the SQL statement, an att
 
 ---
 
-## Impact
+### Impact
 
 Successful exploitation allows an attacker to:
 
@@ -52,9 +54,9 @@ Successful exploitation allows an attacker to:
 
 ---
 
-# Proof of Concept
+### Proof of Concept
 
-## 1. Classic Authentication Bypass
+### 1. Classic Authentication Bypass
 
 **Faculty ID**
 
@@ -82,7 +84,7 @@ The comment sequence removes the password verification and the condition `'1'='1
 
 ---
 
-## 2. Impersonate a Specific Faculty Account
+### 2. Impersonate a Specific Faculty Account
 
 Instead of authenticating as the first returned record, an attacker can directly authenticate as any faculty member by specifying its identifier.
 
@@ -111,7 +113,7 @@ The password validation is removed, allowing login as the faculty member whose `
 
 ---
 
-## 3. Password Field Bypass
+### 3. Password Field Bypass
 
 If the application filters the Faculty ID field but not the password field, authentication can still be bypassed.
 
@@ -146,9 +148,9 @@ The condition always evaluates to TRUE.
 
 ---
 
-# Reproduction
+### Reproduction
 
-## Through the Login Form
+### Through the Login Form
 
 Open:
 
@@ -178,7 +180,7 @@ without requiring valid credentials.
 
 ---
 
-## Using curl
+### Using curl
 
 ```bash
 curl -i -X POST http://127.0.0.1:9292/loginlinkfaculty.php \
@@ -199,7 +201,7 @@ The returned session cookie grants authenticated access to faculty functionality
 
 ---
 
-# Session Abuse
+### Session Abuse
 
 After authentication, the application stores user information inside the PHP session:
 
@@ -212,7 +214,18 @@ Any subsequent request using the returned `PHPSESSID` is treated as an authentic
 
 ---
 
-# Stored XSS via UNION Injection
+## CloudClassroom PHP 1.0 – XSS via UNION Injection
+
+### Presentation:
+- Security vulnerability: XSS via UNION Injection
+- Vulnerability Type: Injection
+- CWE: CWE-89 and CWE-79
+- Affected Component: Post Query functionality (welcomefaculty.php)
+- Software: CloudClassroom PHP Project
+- Version: 1.0 (discontinued).
+- Business area: Education / e-Learning Platforms
+- Submitter: Smith Braz - @smith-braz
+
 
 If `welcomefaculty.php` renders `$_SESSION["fname"]` without output encoding, SQL Injection can be combined with a UNION query to inject arbitrary JavaScript into the session.
 
@@ -256,7 +269,7 @@ This creates a Stored XSS condition through SQL Injection.
 
 ---
 
-# Security Impact
+### Security Impact
 
 - Authentication Bypass
 - Account Impersonation
@@ -268,14 +281,14 @@ This creates a Stored XSS condition through SQL Injection.
 
 ---
 
-# CWE
+### CWE
 
 - CWE-89 — Improper Neutralization of Special Elements used in an SQL Command (SQL Injection)
 - CWE-79 — Improper Neutralization of Input During Web Page Generation (Stored XSS, if applicable)
 
 ---
 
-# Remediation
+### Remediation
 
 - Replace dynamic SQL concatenation with prepared statements.
 - Use parameterized queries for every database operation.
@@ -287,7 +300,7 @@ This creates a Stored XSS condition through SQL Injection.
 
 ---
 
-# References
+### References
 
 - https://owasp.org/www-community/attacks/SQL_Injection
 - https://owasp.org/Top10/A03_2021-Injection/

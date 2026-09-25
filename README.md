@@ -1,5 +1,7 @@
 
-# CloudClassroom PHP 1.0 – Authentication Bypass via SQL Injection in Faculty Login and XSS via UNION Injection in welcomefaculty
+# CVE-2026-97882
+---
+## CloudClassroom PHP 1.0 – Authentication Bypass via SQL Injection in Faculty Login and XSS via UNION Injection in welcomefaculty
 
 ## Authentication Bypass via SQL Injection in Faculty Login
 
@@ -11,7 +13,7 @@ Presentation:
 - Software: CloudClassroom PHP Project
 - Version: 1.0 (discontinued).
 - Business area: Education / e-Learning Platforms
-- Submitter: Smith Braz - @smith-braz
+- Submitter: Smith Braz - @smithbraz
 
 ### Summary vulnerability
 
